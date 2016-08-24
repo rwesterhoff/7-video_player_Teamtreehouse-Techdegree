@@ -1,0 +1,16 @@
+/* Base */
+* {
+	box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    background-color: #2a9cc9;
+    align-items: center;
+    justify-content: center;
+}
+figure {
+	margin: 0;
+	padding: 0;
+}

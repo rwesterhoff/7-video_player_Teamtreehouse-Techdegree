@@ -1,0 +1,60 @@
+/* Captions controls */
+.captions-menu {
+    display:none;
+    position:absolute;
+    bottom:14.8%;
+    right:20px;
+    background:#666;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    width:100px;
+    padding:10px;
+}
+
+.captions-menu li {
+    padding:0;
+    text-align:center;
+}
+
+.captions-menu li button {
+    border:none;
+    background:#000;
+    color:#fff;
+    cursor:pointer;
+    width:90%;
+    padding:2px 5px;
+    border-radius:2px;
+}
+
+
+/* Captions HTML */
+
+#video-captions {
+    padding: 20px;
+    background-color: white;
+    column-count: 1;
+    p {
+        display: inline;
+        font-size: 14px;
+        line-height: 1.7;
+        &:first-child {
+            margin-top: 0;
+        }
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    span {
+        &.active-caption {
+            color: $orange-peel;
+        }
+    }
+    @media screen and (min-width: 569px) {
+        column-count: 2;
+        column-gap: 20px;
+    }
+    @media screen and (min-width: 1025px) {
+        column-count: 3;
+    }
+}

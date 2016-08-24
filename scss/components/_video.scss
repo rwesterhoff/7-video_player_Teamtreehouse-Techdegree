@@ -1,0 +1,7 @@
+/* Video */
+
+#video {
+    &-player {
+        @extend %full-width;
+    }
+}
