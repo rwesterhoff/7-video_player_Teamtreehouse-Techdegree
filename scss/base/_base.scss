@@ -1,16 +1,19 @@
 /* Base */
+
 * {
-	box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body {
-    display: flex;
-    height: 100vh;
+    height: 100%;
     background-color: #2a9cc9;
-    align-items: center;
-    justify-content: center;
 }
+
 figure {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.srt {
+    text-indent: -999999px;
 }

@@ -1,6 +1,7 @@
 /* Typography */
 html,
-body {
+body,
+a {
 	font-family: $font-stack;
 	font-size: $root-font-size;
 	color: $dove-gray;

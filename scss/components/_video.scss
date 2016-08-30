@@ -1,6 +1,16 @@
 /* Video */
 
 #video {
+	&-container {
+        position: relative;
+        overflow: hidden;
+        @extend %full-width;
+        &:hover {
+            #video-controls {
+                opacity: .9;
+            }
+        }
+    }
     &-player {
         @extend %full-width;
     }
