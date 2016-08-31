@@ -13,15 +13,15 @@
 <body>
     <main id="content">
         <figure id="video-container">
-            <video id="video-player" preload="metadata" controls>
+            <video id="video-player" preload="auto" poster="images/video-poster.jpg" heigth="1024" width="576" controls >
                 <source src="video/video.mp4" type="video/mp4">
                 <source src="video/video.ogg" type="video/ogg">
                 <track kind="subtitles" src="video/captions-en.vtt" srclang="en" label="English" default></track>
                 <track kind="subtitles" src="video/captions-nl.vtt" srclang="nl" label="Nederlands"></track>
             </video>
         </figure>
-        <section id="video-captions">          
-        </section>
+<!--         <section id="video-captions">
+        </section> -->
     </main>
     <script src="js/video-player.js"></script>
 </body>

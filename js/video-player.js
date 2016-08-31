@@ -73,7 +73,6 @@ if (supportsVideo) {
     var muteButton = document.querySelector('#mute');
     var volumeSlider = document.querySelector('#volume-bar');
     var progressContainer = document.querySelector('#progress-container');
-    var progress = document.querySelector('#progress');
     var progressBar = document.querySelector('#progress-bar');
     var bufferBar = document.querySelector('#buffer-bar');
     var fullscreenButton = document.querySelector('#full-screen');
@@ -85,6 +84,14 @@ if (supportsVideo) {
     var durationIndicator = document.querySelector('#duration-indicator');
 
     /*------------------- EVENT LISTENERS ---------------------*/
+    // Event listener on the video itself
+    videoPlayer.addEventListener('playing', function(e) {
+        playButton.setAttribute('data-state', 'playing');
+    });
+
+    videoPlayer.addEventListener('ended', function(e) {
+        playButton.setAttribute('data-state', 'paused');
+    });
 
     // Event listener for the play button
     playButton.addEventListener('click', function(e) {
@@ -129,13 +136,6 @@ if (supportsVideo) {
         // Update the video volume
         videoPlayer.volume = volumeSlider.value;
     });
-
-    /*// Event listener for the progress bar
-    videoPlayer.addEventListener('loadedmetadata', function() {
-        // Set the max value
-        progress.setAttribute('max', videoPlayer.duration);
-        buffer.setAttribute('max', videoPlayer.duration);
-    });*/
 
     // Event listener for the time indicator
     setInterval(function() {
@@ -193,7 +193,6 @@ if (supportsVideo) {
         }
         var setTime = multiPlier * videoDuration;
         videoPlayer.currentTime = setTime;
-        // alert(setTime);
     });
 
     // Check if browser supports the Fullscreen API
@@ -263,6 +262,7 @@ if (supportsVideo) {
 
     // Creation menu with captions
     var captionMenuButtons = [];
+    // Using document fragments for better performance as this is just in memory and not in DOM
     var df = document.createDocumentFragment();
     var captionsMenu = df.appendChild(document.createElement('ul'));
     var createMenuItem = function(id, lang, label) {
@@ -300,9 +300,6 @@ if (supportsVideo) {
 
     // Reading textTracks properties and building the menu
     if (videoPlayer.textTracks) {
-        // Using document fragments for better performance as this is just in memory and not in DOM
-        // var df = document.createDocumentFragment();
-        // var captionsMenu = df.appendChild(document.createElement('ul'));
         captionsMenu.className = 'captions-menu';
         captionsMenu.appendChild(createMenuItem('captions-off', '', 'Off'));
         for (var i = 0; i < videoPlayer.textTracks.length; i++) {
@@ -323,17 +320,22 @@ if (supportsVideo) {
     });
 
 
-
     // Update the captions HTML with the default language captions
-    var captionsContainer = document.querySelector('#video-captions');
     var captionsHTML = '';
     var trackElements = document.querySelectorAll("track");
     // for each track element
     for (var i = 0; i < trackElements.length; i++) {
         if (trackElements[i].hasAttribute("default")) {
 
+
             trackElements[i].addEventListener("load", function() {
+
+                // Create a container for the captions
+                var captionsContainer = contentContainer.appendChild(document.createElement('section'));
+                captionsContainer.setAttribute('id', 'video-captions');
+
                 var textTrack = this.track;
+
                 // Set the paragraph
                 captionsHTML += '<p>';
                 // Get all the cues
@@ -354,7 +356,7 @@ if (supportsVideo) {
                     var captions = captionsContainer.getElementsByTagName("a");
                     for (var i = 0; i < captions.length; i++) {
                         // And see if the ID is similar to the active cue's ID
-                        if (captions[i].id === cue.id) {
+                        if (captions[i].id == cue.id) {
                             // Set the caption to 'active'
                             captions[i].setAttribute('data-state', 'active');
                         } else {
@@ -378,19 +380,20 @@ if (supportsVideo) {
                     }
                 }
                 setCaptionTriggers();
-            }, false);
+
+            }, true);
         }
     }
+
 }
 
 /*TODO:
 JS-->
-if video is playing, make playbutton data-state 'playing' 
-clicking on captions in chrome will not play initially (probably no ID is set yet)
-Captions not loading in Safari and Firefox
-Video not well loaded initially in Safari
+cues not always loading in safari and firefox
+refactor
 CSS-->
 Style captions menu
 Fix bottom gap in figure element
 Style sliders
+show playbar only on mouseOut
 */
