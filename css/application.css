@@ -32,7 +32,7 @@ figure, .captions-menu {
   margin: 0;
   padding: 0; }
 
-video::-webkit-media-controls-enclosure, #button-container #playback-indicator, #button-container input[type=range], #button-container input#volume-bar {
+video::-webkit-media-controls-enclosure, #button-container input[type=range], #button-container input#volume-bar {
   display: none; }
 
 #video-container #video-controls > *:not(#progress-container), .captions-menu[data-state=hidden] {
@@ -110,6 +110,10 @@ video::-webkit-media-controls-enclosure, #button-container #playback-indicator, 
     color: white; }
   #button-container #time-indicator {
     margin: 0 5px; }
+  #button-container #seek-bar {
+    width: 360px; }
+  #button-container #volume-bar {
+    width: 60px; }
   #button-container button {
     display: -webkit-box;
     display: -webkit-flex;
@@ -127,17 +131,17 @@ video::-webkit-media-controls-enclosure, #button-container #playback-indicator, 
     background-repeat: no-repeat;
     background-position: center center; }
     #button-container button#playpause, #button-container button#playpause[data-state=paused] {
-      background-image: url("{$path-icons}/play-icon.svg"); }
+      background-image: url("../icons/play-icon.svg"); }
     #button-container button#playpause[data-state=playing] {
-      background-image: url("{$path-icons}/pause-icon.svg"); }
+      background-image: url("../icons/pause-icon.svg"); }
     #button-container button#stop {
-      background-image: url("{$path-icons}/stop-icon.svg"); }
+      background-image: url("../icons/stop-icon.svg"); }
     #button-container button#mute, #button-container button#mute[data-state=sound] {
-      background-image: url("{$path-icons}/volume-on-icon.svg"); }
+      background-image: url("../icons/volume-on-icon.svg"); }
     #button-container button#mute[data-state=muted] {
-      background-image: url("{$path-icons}/volume-off-icon.svg"); }
+      background-image: url("../icons/volume-off-icon.svg"); }
     #button-container button#full-screen {
-      background-image: url("{$path-icons}/fullscreen-icon.svg"); }
+      background-image: url("../icons/fullscreen-icon.svg"); }
     #button-container button:hover, #button-container button:focus {
       opacity: 1; }
   @media screen and (min-width: 569px) {
@@ -168,12 +172,6 @@ video::-webkit-media-controls-enclosure, #button-container #playback-indicator, 
       display: flex; }
     #button-container input#volume-bar[disabled=disabled] {
       opacity: .5; } }
-
-#seek-bar {
-  width: 360px; }
-
-#volume-bar {
-  width: 60px; }
 
 /* Video */
 #video-container {

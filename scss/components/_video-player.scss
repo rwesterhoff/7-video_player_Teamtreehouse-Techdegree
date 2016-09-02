@@ -53,8 +53,14 @@ video::-webkit-media-controls-enclosure {
     #time-indicator {
         margin: 0 5px;
     }
-    #playback-indicator {
-        @extend %no-display;
+    // #playback-indicator {
+    //     @extend %no-display;
+    // }
+    #seek-bar {
+        width: 360px;
+    }
+    #volume-bar {
+        width: 60px;
     }
     button {
         display: flex;
@@ -72,23 +78,23 @@ video::-webkit-media-controls-enclosure {
         @extend %transition;
         &#playpause,
         &#playpause[data-state=paused] {
-            background-image: url('{$path-icons}/play-icon.svg');
+            background-image: url('#{$path-icons}/play-icon.svg');
         }
         &#playpause[data-state=playing] {
-            background-image: url('{$path-icons}/pause-icon.svg');
+            background-image: url('#{$path-icons}/pause-icon.svg');
         }
         &#stop {
-            background-image: url('{$path-icons}/stop-icon.svg');
+            background-image: url('#{$path-icons}/stop-icon.svg');
         }
         &#mute,
         &#mute[data-state=sound] {
-            background-image: url('{$path-icons}/volume-on-icon.svg');
+            background-image: url('#{$path-icons}/volume-on-icon.svg');
         }
         &#mute[data-state=muted] {
-            background-image: url('{$path-icons}/volume-off-icon.svg');
+            background-image: url('#{$path-icons}/volume-off-icon.svg');
         }
         &#full-screen {
-            background-image: url('{$path-icons}/fullscreen-icon.svg');
+            background-image: url('#{$path-icons}/fullscreen-icon.svg');
         }
         &:hover,
         &:focus {
@@ -130,12 +136,4 @@ video::-webkit-media-controls-enclosure {
             }
         }
     }
-}
-
-#seek-bar {
-    width: 360px;
-}
-
-#volume-bar {
-    width: 60px;
 }
