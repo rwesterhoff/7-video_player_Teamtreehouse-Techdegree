@@ -6,12 +6,11 @@
 
 body {
     height: 100%;
-    background-color: #2a9cc9;
+    background-color: #4FAED1;
 }
 
 figure {
-    margin: 0;
-    padding: 0;
+    @extend %no-margin-padding;
 }
 
 .srt {

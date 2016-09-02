@@ -1,17 +1,25 @@
 /* Video */
 
-#video {
-	&-container {
-        position: relative;
-        overflow: hidden;
-        @extend %full-width;
-        &:hover {
-            #video-controls {
-                opacity: .9;
-            }
+#video-container {
+    position: relative;
+    overflow: hidden;
+    @extend %full-width;
+    @include aspect-ratio(16, 9);
+    #video-controls > *:not(#progress-container) {
+        @extend %hide;
+    }
+    &:hover {
+        #video-controls {
+            height: 75px;
+            opacity: .9;
+            background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+        }
+        #video-controls > *:not(#progress-container) {
+            @extend %show;
         }
     }
-    &-player {
-        @extend %full-width;
-    }
+}
+
+#video-player {
+    @extend %full-width;
 }

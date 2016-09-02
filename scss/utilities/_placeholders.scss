@@ -1,7 +1,36 @@
+/* Shared styles */
+
 %full-width {
-	width: 100%;
+    width: 100%;
 }
 
 %float-right {
-	float: right;
+    float: right;
+}
+
+%transition {
+    transition: all .3s;
+}
+
+%no-margin-padding {
+    margin: 0;
+    padding: 0;
+}
+
+%no-display {
+    display: none;
+}
+
+%flex {
+    display: flex;
+}
+
+%hide {
+    visibility: hidden;
+    opacity: 0;
+}
+
+%show {
+    visibility: visible;
+    opacity: 1;
 }

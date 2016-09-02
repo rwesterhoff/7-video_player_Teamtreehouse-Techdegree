@@ -1,16 +1,19 @@
 /* Captions controls */
 
 .captions-menu {
-    display: none;
     position: absolute;
-    bottom: 14.8%;
-    right: 20px;
-    background: #666;
+    bottom: 80px;
+    display: inline-block;
     list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100px;
-    padding: 10px;
+    background: transparent;
+    @extend %transition;
+    @extend %no-margin-padding;
+    &[data-state=hidden] {
+        @extend %hide;
+    }
+    &[data-state=visible] {
+        @extend %show;
+    }
 }
 
 .captions-menu li {
@@ -19,13 +22,18 @@
 }
 
 .captions-menu li button {
-    border: none;
-    background: #000;
-    color: #fff;
+    display: block;
+    padding: 5px 10px;
     cursor: pointer;
-    width: 90%;
-    padding: 2px 5px;
-    border-radius: 2px;
+    color: white;
+    border: none;
+    background: rgba(0, 0, 0, .5);
+    @extend %full-width;
+    &:hover,
+    &:focus {
+        color: black;
+        background-color: $orange-peel;
+    }
 }
 
 
@@ -36,9 +44,9 @@
     background-color: white;
     column-count: 1;
     p {
-        display: inline;
         font-size: 14px;
         line-height: 1.7;
+        display: inline;
         &:first-child {
             margin-top: 0;
         }
@@ -47,16 +55,21 @@
         }
     }
     .caption-cue {
+        text-decoration: none;
+        @extend %transition;
         &[data-state=active] {
             color: $orange-peel;
+            background-color: rgba($orange-peel, 0);
         }
-        text-decoration: none;
-        transition: background-color .5s;
-        &:hover {
+        &[data-state=active]:hover,
+        &[data-state=active]:focus {
+            background-color: rgba($orange-peel, .25);
+        }
+        &:hover,
+        &:focus {
             background-color: #ddd;
         }
     }
-
     @media screen and (min-width: 569px) {
         column-count: 2;
         column-gap: 20px;

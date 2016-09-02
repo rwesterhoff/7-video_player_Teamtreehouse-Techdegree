@@ -1,5 +1,5 @@
 video::-webkit-media-controls-enclosure {
-    display: none !important;
+    @extend %no-display;
 }
 
 #video-controls {
@@ -8,43 +8,42 @@ video::-webkit-media-controls-enclosure {
     bottom: 0;
     display: flex;
     flex-direction: row;
-    height: 75px;
+    height: 25px;
     padding: 10px;
-    transition: opacity .3s;
-    background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+    background: linear-gradient(to top, rgba(0, 0, 0, .25), rgba(0, 0, 0, 0));
     justify-content: space-between;
     @extend %full-width;
-    opacity: 0;
+    @extend %transition;
     .progress {
         height: 5px;
-        width: 100%;
-        background-color: rgba(255,255,255,.15);
+        background-color: rgba(255, 255, 255, .15);
+        @extend %full-width;
     }
     #progress-bar,
     #buffer-bar {
         display: inline-block;
-        width: 0%;
-        height: 100%;
         float: left;
+        width: 0;
+        height: 100%;
     }
     #progress-bar {
         cursor: pointer;
         background-color: $orange-peel;
     }
     #buffer-bar {
-        background-color: rgba(255,255,255,.3);
-
+        background-color: rgba(255, 255, 255, .3);
     }
-    
 }
 
 #button-container {
-    border: none;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     padding: 15px;
+    opacity: 0;
+    border: none;
+    justify-content: space-between;
     align-items: center;
+    @extend %transition;
     #time-indicator,
     #current-time-indicator,
     #duration-indicator {
@@ -55,7 +54,7 @@ video::-webkit-media-controls-enclosure {
         margin: 0 5px;
     }
     #playback-indicator {
-        display: none;
+        @extend %no-display;
     }
     button {
         display: flex;
@@ -63,51 +62,57 @@ video::-webkit-media-controls-enclosure {
         height: 30px;
         margin: 0 5px;
         cursor: pointer;
+        opacity: .75;
         color: #eee;
         border: 0;
         border-radius: 3px;
         background: transparent;
         background-repeat: no-repeat;
         background-position: center center;
+        @extend %transition;
         &#playpause,
         &#playpause[data-state=paused] {
-            background-image: url('../icons/play-icon.svg');
+            background-image: url('{$path-icons}/play-icon.svg');
         }
         &#playpause[data-state=playing] {
-            background-image: url('../icons/pause-icon.svg');
+            background-image: url('{$path-icons}/pause-icon.svg');
         }
         &#stop {
-            background-image: url('../icons/stop-icon.svg');
+            background-image: url('{$path-icons}/stop-icon.svg');
         }
         &#mute,
         &#mute[data-state=sound] {
-            background-image: url('../icons/volume-on-icon.svg');
+            background-image: url('{$path-icons}/volume-on-icon.svg');
         }
         &#mute[data-state=muted] {
-            background-image: url('../icons/volume-off-icon.svg');
+            background-image: url('{$path-icons}/volume-off-icon.svg');
         }
         &#full-screen {
-            background-image: url('../icons/fullscreen-icon.svg');
+            background-image: url('{$path-icons}/fullscreen-icon.svg');
+        }
+        &:hover,
+        &:focus {
+            opacity: 1;
         }
     }
     input {
         &[type=range] {
-            display: none;
+            @extend %no-display;
         }
         &#volume-bar {
-            display: none;
+            @extend %no-display;
         }
     }
     @media screen and (min-width: 569px) {
         #button-container {
             justify-content: flex-start;
         }
+        #playback-indicator {
+            display: flex;
+            margin: 0 5px;
+            color: white;
+        }
         button {
-            &#playback-indicator {
-                display: flex;
-                color: white;
-                margin: 0 5px;
-            }
             &#captions {
                 margin-left: auto;
             }
@@ -119,6 +124,9 @@ video::-webkit-media-controls-enclosure {
             }
             &#volume-bar {
                 display: flex;
+            }
+            &#volume-bar[disabled=disabled] {
+                opacity: .5;
             }
         }
     }

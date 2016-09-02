@@ -19,11 +19,18 @@ if (supportsVideo) {
 
     /*------------------- CONTROLS ---------------------*/
 
-    // Define custom controls
+
+
+    //Make controls container ready
     var divHTML = document.createElement('div');
+    divHTML.setAttribute('id', 'video-controls');
+    divHTML.setAttribute('class', 'controls');
+    divHTML.setAttribute('data-state', 'hidden');
+
+    // Define custom controls
     var playButtonHTML = '<button id="playpause" class="srt" type="button" data-state="play">Play/Pause</button>\n';
     var playBackSliderHTML = '<input type="range" id="speed-bar" min="0.5" max="2" step="0.25" value="1">\n';
-    var playBackIndicatorHTML = '<button id="playback-indicator">' + videoPlayer.playbackRate + 'x' + '</button>';
+    var playBackIndicatorHTML = '<span id="playback-indicator">' + videoPlayer.playbackRate + 'x' + '</span>';
     var stopButtonHTML = '<button id="stop" class="srt" type="button" data-state="stop">Stop</button>\n';
     var currentTimeIndicatorHTML = '<span id="current-time-indicator"></span>\n';
     var durationIndicatorHTML = '<span id="duration-indicator"></span>\n';
@@ -49,10 +56,6 @@ if (supportsVideo) {
     controlsHTML += fullscreenButtonHTML;
     controlsHTML += '</div>';
 
-    //Make controls container ready
-    divHTML.setAttribute('id', 'video-controls');
-    divHTML.setAttribute('class', 'controls');
-    divHTML.setAttribute('data-state', 'hidden');
 
     // Add controls 
     divHTML.innerHTML = controlsHTML;
@@ -82,6 +85,8 @@ if (supportsVideo) {
     var playBackIndicator = document.querySelector('#playback-indicator');
     var currentTimeIndicator = document.querySelector('#current-time-indicator');
     var durationIndicator = document.querySelector('#duration-indicator');
+
+
 
     /*------------------- EVENT LISTENERS ---------------------*/
     // Event listener on the video itself
@@ -125,9 +130,11 @@ if (supportsVideo) {
         if (videoPlayer.muted) {
             videoPlayer.muted = false;
             this.setAttribute('data-state', 'sound');
+            volumeSlider.removeAttribute('disabled');
         } else {
             videoPlayer.muted = true;
             this.setAttribute('data-state', 'muted');
+            volumeSlider.setAttribute('disabled', 'disabled');
         }
     });
 
@@ -135,6 +142,11 @@ if (supportsVideo) {
     volumeSlider.addEventListener("change", function() {
         // Update the video volume
         videoPlayer.volume = volumeSlider.value;
+        if (volumeSlider.value > 0) {
+            muteButton.setAttribute('data-state', 'sound');
+        } else {
+            muteButton.setAttribute('data-state', 'muted');
+        }
     });
 
     // Event listener for the time indicator
@@ -265,6 +277,7 @@ if (supportsVideo) {
     // Using document fragments for better performance as this is just in memory and not in DOM
     var df = document.createDocumentFragment();
     var captionsMenu = df.appendChild(document.createElement('ul'));
+    captionsMenu.setAttribute('data-state', 'hidden');
     var createMenuItem = function(id, lang, label) {
         var listItem = document.createElement('li');
         var button = listItem.appendChild(document.createElement('button'));
@@ -292,7 +305,8 @@ if (supportsVideo) {
                     videoPlayer.textTracks[i].mode = 'hidden';
                 }
             }
-            captionsMenu.style.display = 'none';
+            captionsMenu.setAttribute('data-state', 'hidden');
+
         });
         captionMenuButtons.push(button);
         return listItem;
@@ -306,15 +320,23 @@ if (supportsVideo) {
             captionsMenu.appendChild(createMenuItem('captions-' + videoPlayer.textTracks[i].language, videoPlayer.textTracks[i].language, videoPlayer.textTracks[i].label));
         }
         videoContainer.appendChild(captionsMenu);
+        // Center the menu on the button
+        (window.onresize = function() {
+            centerCaptionsButton = captionsButton.offsetLeft + (captionsButton.offsetWidth / 2);
+            positonCaptionsMenu = centerCaptionsButton - (captionsMenu.offsetWidth / 2);
+            captionsMenu.style.left = positonCaptionsMenu + 'px';
+        })();
+
     }
+
 
 
     // Event listener for the captions to toggle
     captionsButton.addEventListener('click', function(e) {
-        if (captionsMenu.style.display === 'block') {
-            captionsMenu.style.display = 'none';
+        if (captionsMenu.getAttribute("data-state") === 'visible') {
+            captionsMenu.setAttribute('data-state', 'hidden');
         } else {
-            captionsMenu.style.display = 'block';
+            captionsMenu.setAttribute('data-state', 'visible');
         }
 
     });
@@ -389,11 +411,5 @@ if (supportsVideo) {
 
 /*TODO:
 JS-->
-cues not always loading in safari and firefox
 refactor
-CSS-->
-Style captions menu
-Fix bottom gap in figure element
-Style sliders
-show playbar only on mouseOut
 */
