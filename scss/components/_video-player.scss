@@ -15,6 +15,7 @@ video::-webkit-media-controls-enclosure {
     @extend %full-width;
     @extend %transition;
     .progress {
+        cursor: pointer;
         height: 5px;
         background-color: rgba(255, 255, 255, .15);
         @extend %full-width;
@@ -27,7 +28,6 @@ video::-webkit-media-controls-enclosure {
         height: 100%;
     }
     #progress-bar {
-        cursor: pointer;
         background-color: $orange-peel;
     }
     #buffer-bar {
@@ -53,9 +53,9 @@ video::-webkit-media-controls-enclosure {
     #time-indicator {
         margin: 0 5px;
     }
-    // #playback-indicator {
-    //     @extend %no-display;
-    // }
+    #playback-indicator {
+        @extend %no-display;
+    }
     #seek-bar {
         width: 360px;
     }
@@ -76,6 +76,9 @@ video::-webkit-media-controls-enclosure {
         background-repeat: no-repeat;
         background-position: center center;
         @extend %transition;
+        &#captions {
+            font-weight: bold;
+        }
         &#playpause,
         &#playpause[data-state=paused] {
             background-image: url('#{$path-icons}/play-icon.svg');
@@ -102,11 +105,10 @@ video::-webkit-media-controls-enclosure {
         }
     }
     input {
-        &[type=range] {
-            @extend %no-display;
-        }
+        &[type=range],
         &#volume-bar {
             @extend %no-display;
+            width: 15%;
         }
     }
     @media screen and (min-width: 569px) {

@@ -34,3 +34,12 @@
     visibility: visible;
     opacity: 1;
 }
+%no-webkit-appearance {
+      -webkit-appearance: none;
+}
+%opacity-3-quarter {
+    opacity: .75;
+}
+%opacity-full {
+    opacity: 1;
+}
