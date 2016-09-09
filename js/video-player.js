@@ -269,66 +269,56 @@ function VideoPlayer(id, controlsContainer, playerControls) {
                     for (var i = 0; i < textTracks.length; i++) {
 
                         if (trackElements[i].hasAttribute("default")) {
-
-                            console.log(trackElements[i].label + ' is default');
-                            // Create a container for the captions
-
-
                             var textTrack = trackElements[i].track,
                                 captionsContainer = contentContainer.appendChild(document.createElement('section'));
                             captionsContainer.setAttribute('id', 'video-captions');
 
-                            // Set the paragraph
-                            captionsHTML += '<p>';
-                            // Get all the cues
-                            for (var j = 0; j < textTrack.cues.length; ++j) {
-                                var cue = textTrack.cues[j];
-                                captionsHTML += '<a href="#" id="' + cue.id + '"';
-                                 captionsHTML += 'class="caption-cue"';
-                                 captionsHTML += 'data-state="inactive"';
-                                 captionsHTML += 'data-start="' + cue.startTime + '">';
-                                 captionsHTML += cue.text + ' ';
-                                 captionsHTML += '</a>';
-                            }
-                            // Close the paragraph
-                            captionsHTML += '</p>';
-                            // Update '#video-captions' with captions from default VTT file
-                            captionsContainer.innerHTML = captionsHTML;
-
-                            // Each time a cue changes check it's ID
-                            textTrack.oncuechange = function() {
-                                // "this" is a textTrack
-                                var cue = this.activeCues[0]; // assuming there is only one active cue
-                                // Check the captions 
-                                var captions = captionsContainer.getElementsByTagName("a");
-                                for (var i = 0; i < captions.length; i++) {
-                                    // And see if the ID is similar to the active cue's ID
-                                    if (captions[i].id == cue.id) {
-                                        // Set the caption to 'active'
-                                        captions[i].setAttribute('data-state', 'active');
-                                    } else {
-                                        // Or 'inactive'
-                                        captions[i].setAttribute('data-state', 'inactive');
-                                    }
+                            if (trackElements[i].readyState > 0) {
+                                console.log(trackElements[i].readyState);
+                                // Set the paragraph
+                                captionsHTML += '<p>';
+                                // Get all the cues
+                                for (var j = 0; j < textTrack.cues.length; ++j) {
+                                    var cue = textTrack.cues[j];
+                                    captionsHTML += '<a href="#" id="' + cue.id + '"';
+                                    captionsHTML += 'class="caption-cue"';
+                                    captionsHTML += 'data-state="inactive"';
+                                    captionsHTML += 'data-start="' + cue.startTime + '">';
+                                    captionsHTML += cue.text + ' ';
+                                    captionsHTML += '</a>';
                                 }
-                            };
-                            // Event listener for the time indicator
+                                // Close the paragraph
+                                captionsHTML += '</p>';
+                                // Update '#video-captions' with captions from default VTT file
+                                captionsContainer.innerHTML = captionsHTML;
+
+                                // Each time a cue changes check it's ID
+                                textTrack.oncuechange = function() {
+                                    var cue = this.activeCues[0]; // assuming there is only one active cue
+                                    var captions = captionsContainer.getElementsByTagName("a");
+                                    for (var i = 0; i < captions.length; i++) {
+                                        // And see if the ID is similar to the active cue's ID
+                                        if (captions[i].id == cue.id) {
+                                            captions[i].setAttribute('data-state', 'active');
+                                        } else {
+                                            captions[i].setAttribute('data-state', 'inactive');
+                                        }
+                                    }
+                                };
+                            }
+
                             function setCaptionTriggers() {
                                 var captionTriggers = captionsContainer.getElementsByTagName("a");
                                 for (var i = 0; i < captionTriggers.length; i++) {
-                                    // If a cue is clicked
+                                    // Event listener for the clickable cues
                                     captionTriggers[i].addEventListener('click', function(e) {
-                                        // Get the correct starting time
                                         var triggerStartTime = this.getAttribute('data-start');
-                                        // Play video from here
                                         videoPlayer.currentTime = triggerStartTime;
                                         videoPlayer.play();
                                     });
                                 }
                             }
                             setCaptionTriggers();
-                        } else {
-                            console.log(trackElements[i].label + ' is NOT default');
                         }
                     }
                 },
