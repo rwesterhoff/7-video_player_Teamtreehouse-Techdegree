@@ -22,7 +22,7 @@ a {
   color: #666; }
 
 /* Shared styles */
-#video-container, #video-container:before, #video-player, #video-controls, #video-controls .progress, .captions-menu li button, #content {
+#video-container, #video-container:before, #video-player, #video-controls, #video-controls .progress, .captions-menu li button, #content-container {
   width: 100%; }
 
 #video-controls, #button-container, #button-container button, input[type=range]::-webkit-slider-thumb, .captions-menu, #video-captions .caption-cue {
@@ -75,23 +75,11 @@ input[type=range], input[type=range]::-webkit-slider-thumb {
   position: absolute;
   z-index: 2147483647;
   bottom: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: row;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  display: block;
   height: 25px;
   padding: 10px;
   background: -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.25), transparent);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.25), transparent);
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-      -ms-flex-pack: justify;
-          justify-content: space-between; }
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.25), transparent); }
   #video-controls .progress {
     cursor: pointer;
     height: 5px;
@@ -100,7 +88,7 @@ input[type=range], input[type=range]::-webkit-slider-thumb {
   #video-controls #buffer-bar {
     display: inline-block;
     float: left;
-    width: 0;
+    width: 0%;
     height: 100%; }
   #video-controls #progress-bar {
     background-color: #FF9900; }
@@ -205,7 +193,8 @@ input[type=range], input[type=range]::-webkit-slider-thumb {
 /* Sliders */
 input[type=range] {
   width: 100%;
-  margin: 18px 0; }
+  margin: 18px 0;
+  background: rgba(255, 255, 255, 0.15); }
 
 input[type=range]:focus {
   outline: none; }
@@ -214,7 +203,7 @@ input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 5px;
   cursor: pointer;
-  background: #666; }
+  background: transparent; }
 
 input[type=range]::-webkit-slider-thumb {
   width: 15px;
@@ -224,20 +213,20 @@ input[type=range]::-webkit-slider-thumb {
           transform: translateY(-34%);
   opacity: .75;
   border-radius: 50%;
-  background: #fff; }
+  background: white; }
 
 input[type=range]:hover::-webkit-slider-thumb,
 input[type=range]:focus::-webkit-slider-thumb {
   opacity: 1; }
 
 input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #666; }
+  background: rgba(255, 255, 255, 0.15); }
 
 input[type=range]::-moz-range-track {
   height: 5px;
   cursor: pointer;
   outline: none;
-  background: #666; }
+  background: rgba(255, 255, 255, 0.15); }
 
 input[type=range]::-moz-range-thumb {
   width: 15px;
@@ -247,7 +236,7 @@ input[type=range]::-moz-range-thumb {
   border: none;
   border-radius: 50%;
   outline: none;
-  background: #fff; }
+  background: white; }
 
 input[type=range]:hover::-moz-range-thumb,
 input[type=range]:focus::-moz-range-thumb {
@@ -257,28 +246,28 @@ input[type=range]::-ms-track {
   width: 100%;
   height: 5px;
   cursor: pointer;
-  background: #666; }
+  background: rgba(255, 255, 255, 0.15); }
 
 input[type=range]::-ms-fill-lower {
   border-radius: 50%;
-  background: #666; }
+  background: rgba(255, 255, 255, 0.15); }
 
 input[type=range]::-ms-fill-upper {
   border-radius: 50%;
-  background: #666; }
+  background: rgba(255, 255, 255, 0.15); }
 
 input[type=range]::-ms-thumb {
   width: 15px;
   height: 15px;
   cursor: pointer;
   border-radius: 50%;
-  background: #666; }
+  background: white; }
 
 input[type=range]:focus::-ms-fill-lower {
-  background: #666; }
+  background: rgba(255, 255, 255, 0.15); }
 
 input[type=range]:focus::-ms-fill-upper {
-  background: #666; }
+  background: rgba(255, 255, 255, 0.15); }
 
 /* Captions controls */
 .captions-menu {
@@ -345,6 +334,6 @@ input[type=range]:focus::-ms-fill-upper {
 	LAYOUT
 \* -----------------------------------------------------------*/
 /* Grid */
-#content {
+#content-container {
   max-width: 1024px;
   margin: 0 auto; }

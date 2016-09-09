@@ -6,12 +6,12 @@ video::-webkit-media-controls-enclosure {
     position: absolute;
     z-index: 2147483647;
     bottom: 0;
-    display: flex;
-    flex-direction: row;
+    display: block;
+    // flex-direction: row;
     height: 25px;
     padding: 10px;
     background: linear-gradient(to top, rgba(0, 0, 0, .25), rgba(0, 0, 0, 0));
-    justify-content: space-between;
+    // justify-content: space-between;
     @extend %full-width;
     @extend %transition;
     .progress {
@@ -24,7 +24,7 @@ video::-webkit-media-controls-enclosure {
     #buffer-bar {
         display: inline-block;
         float: left;
-        width: 0;
+        width: 0%;
         height: 100%;
     }
     #progress-bar {
