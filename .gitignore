@@ -1,2 +1,10 @@
 
 *.codekit
+
+js/application 3.js
+
+js/min/application-min.js
+
+.DS_Store
+
+*.scssc
